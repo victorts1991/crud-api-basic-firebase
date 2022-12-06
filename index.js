@@ -25,7 +25,27 @@ app.get('/persons', async (req, res) => {
     }))
 })
 
-//TODO: update and delete
+app.get('/person/:id', async (req, res) => {
+    const person = await db.collection('persons').doc(req.params.id).get()
+    res.json({
+        id: person.id,
+        ...person.data()
+    })
+})
+
+app.put('/person/:id', async (req, res) => {
+    await db.collection('persons').doc(req.params.id).update(req.body)
+    const person = await db.collection('persons').doc(req.params.id).get()
+    res.json({
+        id: person.id,
+        ...person.data()
+    })
+})
+
+app.delete('/person/:id', async (req, res) => {
+    await db.collection('persons').doc(req.params.id).delete()
+    res.json({"success": true})
+})
 
 app.listen(3001, () => {
     console.log("Server running on port 3001")
