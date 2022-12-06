@@ -1,0 +1,23 @@
+{
+  "name": "crud-api-basic-firebase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorts1991/crud-api-basic-firebase.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victorts1991/crud-api-basic-firebase/issues"
+  },
+  "homepage": "https://github.com/victorts1991/crud-api-basic-firebase#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
