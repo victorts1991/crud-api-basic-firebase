@@ -1,10 +1,32 @@
-var express = require("express")
-var app = express()
+const express = require("express")
+
+const app = express()
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
+const fs = require('firebase-admin')
+const serviceAccount = require('./firebase-admin-sdk-key.json')
+fs.initializeApp({
+    credential: fs.credential.cert(serviceAccount)
+})
+const db = fs.firestore()
+
+app.post('/person', async (req, res) => {
+    const persons = await db.collection('persons')
+    persons.add(req.body)
+    res.json({"success": true})
+})
+
+app.get('/persons', async (req, res) => {
+    const persons = await db.collection('persons').get()
+    res.json(persons.docs.map(doc => {
+        return { id: doc.id, ...doc.data() }
+    }))
+})
+
+//TODO: update and delete
 
 app.listen(3001, () => {
     console.log("Server running on port 3001")
-
-    app.get("/persons", (req, res, next) => {
-        res.json(["Tony","Lisa","Michael","Ginger","Food"]);
-    });
-});
+})
